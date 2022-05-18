@@ -3,8 +3,13 @@ package petStore.requests;
 import com.google.gson.GsonBuilder;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import petStore.pojo.Pet;
 import petStore.utils.PropertiesFactory;
+
+import static io.restassured.RestAssured.given;
 
 public class PetRequest {
 
@@ -12,6 +17,32 @@ public class PetRequest {
 
     public PetRequest(Pet pet) {
         this.pet = pet;
+    }
+
+    public Pet addPetRequest2() throws Exception {
+
+        RestAssured.baseURI = PropertiesFactory.getProperty("petStore.pet");
+        Response response = given()
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .body(pet)
+                .when()
+                .post()
+                .then()
+                .extract().response();
+
+        Pet pet = new Pet();
+
+//        ResponseBody body = response.getBody();
+
+        // if the response status is 200 set the response parameters to objects, else set the response message
+        if(response.statusCode() == 200){
+            pet = response.getBody().as(Pet.class);
+        }else{
+            pet.setResponseMessage(response.statusLine());
+        }
+        pet.setHttpStatusCode(response.statusCode());
+        return pet;
     }
 
     public Pet addPetRequest() throws Exception {
