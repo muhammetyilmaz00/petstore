@@ -15,7 +15,7 @@ public class Hooks {
         return scenario;
     }
     public static String getScenarioName(){
-        return getScenario().getName();
+        return scenario.getName();
     }
     public static Collection<String> getScenarioTags(){
         return scenario.getSourceTagNames();
@@ -30,7 +30,10 @@ public class Hooks {
     public void initLog4j() {
         String log4jConfPath = "log4j.properties";
         PropertyConfigurator.configure(log4jConfPath);
+    }
 
+    @Before
+    public void setUp(){
         LogUtils.logInfo("Started Scenario: "+getScenarioName());
     }
 
