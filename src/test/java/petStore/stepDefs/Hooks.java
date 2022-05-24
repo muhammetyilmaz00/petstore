@@ -15,7 +15,7 @@ public class Hooks {
         return scenario;
     }
     public static String getScenarioName(){
-        return scenario.getName();
+        return getScenario().getName();
     }
     public static Collection<String> getScenarioTags(){
         return scenario.getSourceTagNames();

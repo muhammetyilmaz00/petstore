@@ -15,7 +15,7 @@ import java.util.List;
 public class UpdatingPetStepDef {
 
     final TestRunContext testRunContext = new TestRunContext();
-    Pet petParameters = new Pet();
+    Pet pet = new Pet();
     final List<String> photoUrl = new ArrayList<>();
     final String name = "catty";
     final String url = "https://imgur.com/5woimoe";
@@ -33,23 +33,23 @@ public class UpdatingPetStepDef {
         // get the last saved response
         Pet pet = testRunContext.getPet();
 
-        petParameters = AddingPetStepDef.setPetParameters();
+//        pet = AddingPetStepDef.setPetParameters();
 
         // changing the name, photoUrl, categoryName, and tagNames
         photoUrl.add(url);
-        petParameters.setName(name);
-        petParameters.setPhotoUrls(photoUrl);
+        pet.setName(name);
+        pet.setPhotoUrls(photoUrl);
         category.setName(categoryName);
-        petParameters.setCategory(category);
+        pet.setCategory(category);
         tag1.setName(tagName);
         tag2.setName(tagName2);
         tags.add(tag1);
         tags.add(tag2);
-        petParameters.setTags(tags);
+        pet.setTags(tags);
 
         // send the add a pet request
         PetRequest petRequest = new PetRequest(pet);
-        pet = petRequest.updatePetRequest();
+        pet = petRequest.updatePetRequest2();
 
         // save the response to use another part
         testRunContext.setPet(pet);
@@ -64,8 +64,8 @@ public class UpdatingPetStepDef {
         Assert.assertEquals(200, pet.getHttpStatusCode());
         Assert.assertEquals(name, pet.getName());
         Assert.assertEquals(photoUrl, pet.getPhotoUrls());
-        Assert.assertEquals(categoryName,pet.getCategory().getName());
-        Assert.assertEquals(tagName,pet.getTags().get(0).getName());
-        Assert.assertEquals(tagName2,pet.getTags().get(1).getName());
+        Assert.assertEquals(categoryName, pet.getCategory().getName());
+        Assert.assertEquals(tagName, pet.getTags().get(0).getName());
+        Assert.assertEquals(tagName2, pet.getTags().get(1).getName());
     }
 }

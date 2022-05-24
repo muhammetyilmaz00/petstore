@@ -92,4 +92,30 @@ public class PetRequest {
         pet.setHttpStatusCode(response.getStatus());
         return pet;
     }
+
+    public Pet updatePetRequest2() throws Exception {
+
+        RestAssured.baseURI = PropertiesFactory.getProperty("petStore.pet");
+        Response response = given()
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .body(pet)
+                .when()
+                .put()
+                .then()
+                .extract().response();
+
+        Pet pet = new Pet();
+
+//        ResponseBody body = response.getBody();
+
+        // if the response status is 200 set the response parameters to objects, else set the response message
+        if(response.statusCode() == 200){
+            pet = response.getBody().as(Pet.class);
+        }else{
+            pet.setResponseMessage(response.statusLine());
+        }
+        pet.setHttpStatusCode(response.statusCode());
+        return pet;
+    }
 }
