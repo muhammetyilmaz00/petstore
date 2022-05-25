@@ -28,4 +28,4 @@ jobs:
           -H "x-api-key:${{ secrets.API_KEY }}"
           -H "multipart/form-data"
           -F "file[]=@target/cucumber.json"
-          "https://app.calliope.pro/api/v2/profile/${{ secrets.PROFILE_ID }}/import/cucumber?os=myos&platform=myplatform&build=mybuild"
+          "https://app.calliope.pro/api/v2/profile/${{ secrets.PROFILE_ID }}/import/cucumber?tag[]=os:MyOs&tags[]=platform:MyPlatform&tags[]=build:MyBuild"
