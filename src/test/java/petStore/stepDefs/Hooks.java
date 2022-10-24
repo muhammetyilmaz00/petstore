@@ -30,29 +30,12 @@ public class Hooks {
     public void initLog4j() {
         String log4jConfPath = "log4j.properties";
         PropertyConfigurator.configure(log4jConfPath);
-    }
 
-    @Before
-    public void setUp(){
         LogUtils.logInfo("Started Scenario: "+getScenarioName());
-    }
-
-    @Before
-    public void setUp(Scenario scenario) {
-//        isAPI = scenario.getSourceTagNames().contains("@api");
-//        if(!isAPI) Driver.setUp();
     }
 
     @After
     public void tearDown(Scenario scenario) {
-//        if (!isAPI && scenario.isFailed()) {
-//            final byte[] screenshot = (
-//                    (TakesScreenshot) Driver.driver
-//            ).getScreenshotAs(OutputType.BYTES);
-//
-//            scenario.attach(screenshot, "image/png", "screenshot");
-//        }
-//        Driver.closeDriver();
         LogUtils.logInfo("Finished Scenario: "+getScenarioName());
     }
 }
